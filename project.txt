@@ -1,0 +1,12 @@
+渤海粮仓项目
+	1 建立数据库
+	2 根据数据库完成
+IDE	Intellij IEDA/ eclipse  ->jsp
+java,jdbc,db
+jsp framework spring
+ssh Spring+Struts+Hibernate
+ssm Spring+SpringMVC+Mybatis
+
+java SE a week to finish
+
+
