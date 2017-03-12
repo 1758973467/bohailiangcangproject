@@ -1,0 +1,151 @@
+tomcat服务器 目录结构
+bin		存放各种平台下的启动和停止命令
+conf	配置文件
+lib		JAR文件
+logs	日志
+temp	运行时临时文件
+webapps	发布Web应用时，默认会将Web应用文件发布于此目录下
+work	将由JSP生成的Servlet放于此mul
+
+Web服务器是如何使用JSP来创建网页的
+就像其他普通的网页一样，您的浏览器发送一个HTTP请求给服务器。
+Web服务器识别出这是一个对JSP网页的请求，并且将该请求传递给JSP引擎。通过使用URL或者.jsp文件来完成。
+JSP引擎从磁盘中载入JSP文件，然后将它们转化为servlet。这种转化只是简单地将所有模板文本改用println()语句，并且将所有的JSP元素转化成Java代码。
+JSP引擎将servlet编译成可执行类，并且将原始请求传递给servlet引擎。
+Web服务器的某组件将会调用servlet引擎，然后载入并执行servlet类。在执行过程中，servlet产生HTML格式的输出并将其内嵌于HTTP response中上交给Web服务器。
+Web服务器以静态HTML网页的形式将HTTP response返回到您的浏览器中。
+最终，Web浏览器处理HTTP response中动态产生的HTML网页，就好像在处理静态网页一样。
+
+
+Web程序
+	编写jsp
+	创建 WEB-INF
+		classes
+		lib
+	WEB-INF是JAVA的Web应用程序的安全目录，只有服务器才能访问
+	web.xml 项目部署文件
+	classes 放置jsp->.class文件
+	lib 存放所需的jar包
+tomcat 默认将index.jsp当作默认欢迎主页文件
+
+项目的虚拟路径
+
+<welcome-lists>
+	<welcome-list>a.jsp</welcome-list>
+</welcome-lists>
+
+修改服务器的默认端口
+conf/server.xml
+ <Connector 
+	port="8080" //服务器默认端口
+	protocol="HTTP/1.1"
+    connectionTimeout="20000"
+    redirectPort="8443" />
+	
+JSP java平台，安全性高，适合开发大型，企业级的Webapp
+ASP.net 简单易学，但安全性，跨平台性差
+Php 简单高效，成本低开发周期短，特别适合中小型企业web应用开发（LAMP“linux+Apache+MySQL+php）
+
+JSP页面元素组成
+	注释，静态存储，指令，表达式，小脚本，声明
+	
+JSP 指令
+page指令
+include指令
+taglib 自定义标签
+	page <%page 属性1=”属性值“ 属性2=”属性值“ ...%>
+	language 指定JSP页面使用的脚本语言 默认值 java
+	import	引用脚本语言中使用到的类文件
+	contentType jsp页面采用的编码方式	text/html ,charset=utf-8
+注释
+	<!-- HTML注释，客户端可见-->
+	<%-- jSP注释，客户端不可见--%>
+	<% 
+	//
+	/* JAVA注释*/
+	%>
+jsp脚本
+	<% 代码片段 %>
+JSP 声明
+	在JSP页面上声明变量，方法
+	<%! Java代码 %>
+	在<%! %>中声明的变量，是全局变量
+
+	在<% %>中声明的变量，是局部变量
+JSP表达式
+	一个JSP表达式中包含的脚本语言表达式，先被转化成String，然后插入到表达式出现的地方。
+	由于表达式的值会被转化成String，所以您可以在一个文本行中使用表达式而不用去管它是否是HTML标签。
+	但是不能使用分号来结束表达式。
+	<%= 
+		表达式
+	%>
+JSP页面生命周期
+	用户发出请求 *.jsp 第一次请求(是)JSP引擎->Servlet,生成字节码，并执行jspInit()
+						(否)解析执行jspService
+	jspService处理客户端请求，每个请求创建一个新线程来处理该请求
+
+	
+	
+JSP 内置对象
+out
+request
+response
+session
+application
+Page pageContext,exception,config
+
+
+out对象 JspWriter类的实例，是向客户端输出内容的常用对象
+	println()
+	clear()清空缓冲区的内容，如果在flush之后会出现异常
+	clearBuffer()清空缓冲区内容
+	flush()将缓冲区内容输出到客户端并清空缓冲区
+	getBufferSize()返回缓冲区大小 字节数
+	getRemaining()返回缓冲区剩余量
+	isAutoFlush()返回当缓冲区满时，自动清空/抛出异常
+<from name="regfrom" action="动作" method="提交方式">
+	get：以明文方式通过URL提交数据，提交数据不能超过2KB,安全性较低但效率比post高
+	post：将用户提交的信息封装在HTML HEADER 内，适合数据量大，安全性高的用户信息
+	
+request 表示客户端请求的信息封装在request中，是HttpServletRequest类的实例。
+request具有请求域，在完成客户端的请求之前一直有效
+String getParameter(String name)返回name指定参数的参数值
+String[] getParameterValues(String name)返回name指定参数的参数值
+void setAttribute(String,Object)
+Object getAttribute(String name);
+String getContentType()得到请求体的MIME类型
+String getProtocol()返回请求用的协议类型及版本号
+String getServerName()返回接受请求的服务器主机名
+
+response对象包含响应客户请求的有关信息，但在JSP中很少直接使用它。是HttpServletResponse类的实例
+具有页面作用域，即访问一个页面时，该页面的response对象只能对这次访问有效，其它页面的response对象对当前页面无效
+String getCharacterEncoding()
+void setContentType(String type)
+PrintWriter getWriter()返回可以向客户端输出字符的一个对象
+sendRedirect(String location)重新定向客户端的请求
+PrintWirter输出的比out对象想输出
+
+请求转发：服务器行为，request.getRequestDispatcher().forward(req,resp);是一次请求，转发后请求对象会保存，地址栏的URL不会改变
+请求重定向：客户端行为，response.sendRedirect(),本质上是两次请求，前一次的请求对象不会保存，地址栏的URL会改变
+
+session 表示客户端与服务器的一次对话
+web中指用户在浏览某个网站时，从进入网站到浏览器关闭所经过的这段时间，即用户浏览这个网站所需的时间
+在服务器内存中保存session
+session 在第一个JSP页面被装载时自动创建，完成会话期管理
+从一个客户打开浏览器并连接到服务器开始，到客户关闭浏览器离开服务其结束，被称为一个会话
+是HttpSession类的实例
+long getCreationTime()				返回session创建对象
+String getId()						session创建时JSP引擎的ID号
+Object setAttribute(String ,Object)	
+Object getAttribute(String)
+String[] getValueNames()			返回一个包含此session中所有可用属性的数组
+int getMaxInactiveInterval()		返回两次请求间隔多长时间此session被取消（s）
+
+session生命周期
+
+
+
+
+
+
+	
