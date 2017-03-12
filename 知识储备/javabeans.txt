@@ -1,0 +1,21 @@
+javabeans
+就是符合某种特定的规范的Java类.
+解决代码重复编写，减少代码冗余，功能区分明确，提供了代码的维护性
+设计原则
+共有类，无参的共有构造方法
+属性私有，getter,setter
+
+JSP动作元素
+动作元素为请求处理阶段提供信息。动作元素遵循XML语法，有一个包含元素名的开始标签，可以有属性，可选的内容，与开始标签匹配的结束标签
+
+分类
+1 与存取JavaBeans有关
+<jsp:useBean><jsp:setProperty><jsp:getProperty>
+2 JSP1.2基本元素
+<jsp:include><jsp:forward><jsp:param><jsp:plugin><jsp:params><jsp:fallback>
+3 JSP2.0新加 与JSP Document
+<jsp:root><jsp:declaration><jsp:scriptlet><jsp:expression><jsp:text><jsp:output>
+4 JSP2.0新增动作元素，用来动态生成XML元素标签的值
+<jsp:attribute><jsp:body><jsp:element>
+5 tagfile
+<jsp:invoke><jsp:dobody>

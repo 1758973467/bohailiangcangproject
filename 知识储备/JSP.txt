@@ -111,7 +111,7 @@ request 表示客户端请求的信息封装在request中，是HttpServletReques
 request具有请求域，在完成客户端的请求之前一直有效
 String getParameter(String name)返回name指定参数的参数值
 String[] getParameterValues(String name)返回name指定参数的参数值
-void setAttribute(String,Object)
+void setAttribute(String,Object);//页面跳转后消失
 Object getAttribute(String name);
 String getContentType()得到请求体的MIME类型
 String getProtocol()返回请求用的协议类型及版本号
@@ -142,10 +142,50 @@ String[] getValueNames()			返回一个包含此session中所有可用属性的�
 int getMaxInactiveInterval()		返回两次请求间隔多长时间此session被取消（s）
 
 session生命周期
+创建：客户端第一次访问某个jsp/servlet时，服务器会为当前会话创建一个sessionId,每次客户端向服务器发送请求时，都会将sessionId携带过去，服务端会对此sessionId校验
+活动：
+某次会话当中通过超链接打开新页面属于同一次会话
+只要当前会话页面没有全部关闭，重新打开新的浏览窗口访问同一项目资源时属于同一次会话
+除非本次会话的所有页面都关闭后重新访问某个Jsp/servlet将会创建新的会话
 
+原有会话超时 才会销毁
 
+销毁：
+session.invalidate
+session过期
+服务器重启
 
+application
+实现了用户数据的共享，可存放全局变量
+开始于服务器启动，终结于服务器关闭
+是ServletContext的实例
+void setAttribute(String,Object)
+Object getAttribute(String)
+Enumeration getAttributeNames()
+String getServerInfo()
 
+page
+指当前JSP页面本身，是Object类的实例
 
+pageContext
+提供了对JSP页面内所有对象及名字空间的访问
+可以访问本页所在的session，也可以取本页面所在的application的某一属性值
+JspWriter getout()
+HttpSession getSession()
+Object getPage()
+ServletRequest getRequest()
+ServletResponse getResponse()
+int getAttributeScope(String)
+void forward(String relativeUrlPath)是当前页面重导到另一页面
+void include(String relativeUrlPath)在当前位置包含另一页面
 
-	
+config 在一个Serv;et初始化时，JSP引擎向它传递信息用的，Servlet初始化信息，服务器信息
+ServletContext getServerContext()
+String getInitParameter(String )返回初始化参数的值
+Enumeration getInitParameterNames()
+
+exception
+当一个页面运行发生异常，如果一个JSP要应用此对象必须把
+
+errorPage="*.jsp",否则无法编译
+处理异常页面 isErrorPage=true

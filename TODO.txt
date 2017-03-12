@@ -16,7 +16,7 @@
 3-11
 1 JSP学到406application对象，但out内置对象-application对象没练习
 2 看J2EE SSH 前9章关于网页开发的常用工具
-
 3-12 
 1 将昨天JSP没练习的部分练习
 2 J2EE 常用工具配置好并初步学习
+3 JSP学到 动作元素
