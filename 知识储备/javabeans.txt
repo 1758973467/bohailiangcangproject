@@ -19,3 +19,18 @@ JSP动作元素
 <jsp:attribute><jsp:body><jsp:element>
 5 tagfile
 <jsp:invoke><jsp:dobody>
+
+在JSP页面中使用Javabeans
+useBeans id 变量名 class 实例化类
+setProperty
+getProperty
+
+useBeans scope属性可以用来指定javabean的作用范围
+page 仅在当前页面有效
+request 可以通过HttpRequest.getAttribute()方法取得Javabean对象
+session 可以通过HttpSession.getAttribute()方法取得Javabean对象
+application 可以通过application.getAttribute()方法取得Javabean对象
+
+Model1 
+javabean可以使jsp页面中使用javabean封装的数据或者调用Javabean的业务逻辑代码，大大提升程序的可维护性
+
