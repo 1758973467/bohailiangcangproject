@@ -1,0 +1,24 @@
+JSP文件上传
+orm表单 method 属性必须设置为 POST 方法 ，不能使用 GET 方法。
+form表单 enctype 属性需要设置为 multipart/form-data。
+form表单 action 属性需要设置为提交到后台处理文件上传的jsp文件地址。例如 uploadFile.jsp 程序文件用来处理上传的文件。
+上传文件元素需要使用 <input .../> 标签，属性设置为 type="file"。如果需要上传多个文件，可以在 <input .../>标签中设置不同的名称。
+
+两个jar文件放在WEB_NFO/lib
+
+JSP 自动刷新 
+定时刷新页面
+response
+void setIntHeader(String header,int headerValue)
+headerValue 时间为s
+
+JSTL(JSP标准标签库)
+是一个JSP标签集合，它封装JSP应用的通用核心功能
+支持通用，结构化的任务
+分类
+	核心标签
+	格式化标签
+	SQL标签
+	XML标签
+	JSTL标签
+使用任何库，你必须在每个JSP文件中的头部包含<taglib>标签

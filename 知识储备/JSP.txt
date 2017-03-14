@@ -210,6 +210,8 @@ response.addCookie(newCookie);
 读取
 Cookie[] cookies=request.getCookies();
 
+void setDomain(String pattern)//设置域名
+String getDomain()
 setmaxAge(int expiry)设置cookie有效期，单位秒
 setValue(String value)在cookie创建后，对cookie进行赋值
 String getName() 返回cookie名称
