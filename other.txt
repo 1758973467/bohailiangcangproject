@@ -1,0 +1,15 @@
+CDN的全称是Content Delivery Network，即内容分发网络
+
+BootCDN  http://www.bootcdn.cn/
+使用
+<body>
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+
+archtype
+
+代表性状态传输（Representational State Transfer，REST）在 Web 领域已经得到了广泛的接受，是基于 SOAP 和 Web 服务描述语言（Web Services Description Language，WSDL）的 Web 服务的更为简单的替代方法。 接口设计方面这一转变的关键证据是主流 Web 2.0 服务提供者（包括 Yahoo、Google 和 Facebook）对 REST 的采用，这些提供者弃用或放弃了基于 SOAP 和 WSDL 的接口，而采用了更易于使用、面向资源的模型来公开其服务。 在本文中，Alex Rodriguez 将向您介绍 REST 的基本原理。
