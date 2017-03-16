@@ -13,3 +13,7 @@ BootCDN  http://www.bootcdn.cn/
 archtype
 
 代表性状态传输（Representational State Transfer，REST）在 Web 领域已经得到了广泛的接受，是基于 SOAP 和 Web 服务描述语言（Web Services Description Language，WSDL）的 Web 服务的更为简单的替代方法。 接口设计方面这一转变的关键证据是主流 Web 2.0 服务提供者（包括 Yahoo、Google 和 Facebook）对 REST 的采用，这些提供者弃用或放弃了基于 SOAP 和 WSDL 的接口，而采用了更易于使用、面向资源的模型来公开其服务。 在本文中，Alex Rodriguez 将向您介绍 REST 的基本原理。
+
+OpenLayers 是一个专为Web GIS 客户端开发提供的JavaScript 类库包，用于实现标准格式发布的地图数据访问。从OpenLayers2.2版本以后，OpenLayers已经将所用到的Prototype.js组件整合到了自身当中，并不断在Prototype.js的基础上完善面向对象的开发，Rico用到地方不多，只是在OpenLayers.Popup.AnchoredBubble类中圆角化DIV
+
+POJO（Plain Ordinary Java Object）简单的Java对象，实际就是普通JavaBeans，是为了避免和EJB混淆所创造的简称。

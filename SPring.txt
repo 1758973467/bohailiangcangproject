@@ -1,7 +1,99 @@
 Spring
 IOC 控制反转，控制权的转移，应用程序本身不负责依赖对象的创建和维护，而是由外部容器负责创建和维护
 DI (依赖注入)是其一种实现方式
+Maven
+	GroupID是项目组织唯一的标识符，实际对应JAVA的包的结构，是main目录里java的目录结构。
+	ArtifactID就是项目的唯一的标识符，实际对应项目的名称，就是项目根目录的名称。
 
-GroupID是项目组织唯一的标识符，实际对应JAVA的包的结构，是main目录里java的目录结构。
+Spring核心容器Bean
+	最基础，最重要的包org.springframework.beans,org.springframework.context;
+	最重要的类BeanFactory和ApplicationContext
+	ApplicationContext 建立在BeanFactory增加了国际化支持，获取资源，事件传递
+	<!--定义 a Bean id 是这个Bean唯一标识，class 指实例化的类 -->
+	<bean id="HelloWorld" class="com.demo.action.HelloWorld">
+        
+        <property name="msg">
+            <value>HelloWorld</value>
+        </property>
+    </bean>
+	
+	SingIeton true/false 只有一个共享实例存在/每次都会创建一个新实例（default）
+	
+	null <null/> 等价
+	
+	depends-on必须先实例化depends-on的bean，再实例化该bean
+	
+	<bean id="hellworld" class="com.demo.action.HelloWorld" depends-on="date">
+		<property name="msg">
+			<value>你好</value>
+		</property>
+		<property name="date">
+			<ref bean="date"/>
+		</property>
+	</bean>
+	<bean id="date" class="java.util.Date"/>
+	lifeclycle
+		Bean的初始化
+		1 在配置文档指定init-method 属性
+		2 实现org.springframework.beans.factory.InitializingBean接口
+		Bean 销毁
+		1 在配置文档指定destroy-method 属性
+		2 实现org.springframework.beans.factory.DisposeableBean接口
+	ref 
+		Bean	用Bean id/name都可，可以在不同的xml
+		parent	//不会，不常用
+	
+	Bean 自动装配 autowire
+	no
+	byName 通过setPassword(..)之类的
+	byType 通过 类型来赋值，只能有一个如果没有不会赋值
+	constructor a fatal error is raised.
+	
+	集合注入方式
+	<bean id="moreComplexObject" class="example.ComplexObject">
+    <!-- results in a setAdminEmails(java.util.Properties) call -->
+    <property name="adminEmails">
+        <props>
+            <prop key="administrator">administrator@example.org</prop>
+            <prop key="support">support@example.org</prop>
+            <prop key="development">development@example.org</prop>
+        </props>
+    </property>
+    <!-- results in a setSomeList(java.util.List) call -->
+    <property name="someList">
+        <list>
+            <value>a list element followed by a reference</value>
+            <ref bean="myDataSource" />
+        </list>
+    </property>
+    <!-- results in a setSomeMap(java.util.Map) call -->
+    <property name="someMap">
+        <map>
+            <entry key="an entry" value="just some string"/>
+            <entry key ="a ref" value-ref="myDataSource"/>
+        </map>
+    </property>
+    <!-- results in a setSomeSet(java.util.Set) call -->
+    <property name="someSet">
+        <set>
+            <value>just some string</value>
+            <ref bean="myDataSource" />
+        </set>
+    </property>
+</bean>
 
-ArtifactID就是项目的唯一的标识符，实际对应项目的名称，就是项目根目录的名称。
+国际化
+
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename"><!--这里必须是basename -->
+            <value>message</value>
+			<!--message_en_US.properties 在 src/main/resource 下面 
+			字符串code 参数1，参数2
+			HelloWorld=问候语：{0} 问候时间: {1} 
+			-->
+        </property>
+    </bean>
+	
+		Object[]objs=new Object[]{"HelloWorld", Calendar.getInstance().getTime()};
+        String msg=applicationContext.getMessage("HelloWorld",objs, Locale.US);
+        System.out.println(msg);

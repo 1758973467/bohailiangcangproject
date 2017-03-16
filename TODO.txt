@@ -22,7 +22,20 @@
 3 JSP学到 动作元素
 3-13
 1 将JSP在http://www.imooc.com 学完基础
-
 3-14
+忘掉了
+3-15
 1 配置spring helloworld（通过maven）
-2 
+3-16
+1 完成Spring beans
+2 借了MapGis的JS书
+3 学了一些Junit
+
+
+
+3-17
+1 借Arggis for JSP
+2 完成Spring事务
+3 简单看下AOP
+4 想要建立一个博客了，
+
