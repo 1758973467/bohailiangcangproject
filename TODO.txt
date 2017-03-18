@@ -35,7 +35,6 @@
 
 3-17
 1 借Arggis for JSP
-2 完成Spring事务
-3 简单看下AOP
-4 想要建立一个博客了，
+2 看了Spring AOP
+3 想要建立一个博客了，
 
