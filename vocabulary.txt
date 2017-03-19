@@ -19,3 +19,4 @@ tape 磁带
 procedure 过程
 replication 复制，折叠
 genre 类型，种类，体裁
+interceptor 拦截器
