@@ -1,0 +1,59 @@
+Junit
+	测试套件意味捆绑几个测试案例并且同时运行。在 JUnit 中，@RunWith 和 @Suite 都被用作运行测试套件。
+	创建Test Runner类
+	运用 JUnit 的 JUnitCore 类的 runClasses 方法来运行上述测试类的测试案例
+	获取在 Result Object 中运行的测试案例的结果
+	获取 Result Object 的 getFailures() 方法中的失败结果
+	获取 Result object 的 wasSuccessful() 方法中的成功结果
+			Result result = JUnitCore.runClasses(testjunit1.class);
+			for (Failure failure : result.getFailures()) {
+				System.out.println(failure.toString());
+			}
+			System.out.println(result.wasSuccessful());
+		
+Junit API
+	Assert 		assert
+	TestCase	定义了运行多重测试的固定装置
+	TestResult	TestResult集合执行测试样例的所有结果
+	TestSuite	是测试的集合
+	
+Assert
+	Methods:
+	void assertEquals
+	void assertNotNull
+	void assertTrue
+	void fail() 		在没有报告的情况下是测试不通过
+
+TestCase
+	Methods:
+	int countTestCases()		为被run(TestResult result) 执行的测试案例计数
+	TestResult createResult()		
+	TestResult run()			一个运行这个测试的方便的方法，收集由TestResult 对象产生的结果
+	void run(TestResult result)	在 TestResult 中运行测试案例并收集结果
+	void setName(String name)
+	void setUp()				创建固定装置，例如，打开一个网络连接
+	void tearDown()				拆除固定装置，例如，关闭一个网络连接
+
+TestResult
+	void addError(Test test, Throwable t)				在错误列表中加入一个错误
+	void addFailure(Test test, AssertionFailedError t)	在失败列表中加入一个失败
+	void endTest(Test test)								显示测试被编译的这个结果
+	int errorCount()									获取被检测出错误的数量
+	Enumeration errors()								返回错误的详细信息
+	int failureCount()									获取被检测出的失败的数量
+	void run(TestCase test) 							运行 TestCase
+	int int runCount()									获得运行测试的数量
+	void startTest(Test test)							声明一个测试即将开始
+	void stop()											标明测试必须停止
+
+TestSuite
+	void addTest(Test test) 							在套中加入测试。
+	void addTestSuite(Class<? extends TestCase> testClass)将已经给定的类中的测试加到套中。
+	int countTestCases()								对这个测试即将运行的测试案例进行计数。
+	void run(TestResult result)							在 TestResult 中运行测试并收集结果。
+	Test testAt(int index)								在给定的目录中返回测试。
+	int testCount()										返回套中测试的数量。
+	static Test warning(String message)					返回会失败的测试并且记录警告信息。
+
+@Test(timeout=1000) 
+@Test(expected = ArithmeticException.class)

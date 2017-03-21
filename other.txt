@@ -23,3 +23,31 @@ JCL 又称作业控制语言。是用于描述MVS，OS/390和VSE操作系统上�
 Groovy 是 用于Java虚拟机的一种敏捷的动态语言，它是一种成熟的面向对象编程语言，既可以用于面向对象编程，又可以用作纯粹的脚本语言。使用该种语言不必编写过多的代码，同时又具有闭包和动态语言中的其他特性。
 
 Groovy是JVM的一个替代语言(替代是指可以用 Groovy 在Java平台上进行 Java 编程)，使用方式基本与使用 Java代码的方式相同，该语言特别适合与Spring的动态语言支持一起使用，设计时充分考虑了Java集成，这使 Groovy 与 Java 代码的互操作很容易。(注意:不是指Groovy替代java，而是指Groovy和java很好的结合编程。
+
+
+
+Maven是基于项目对象模型(POM)，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。
+Ant 当作Java编程项目的标准构建工具。遗憾的是，Ant的项目管理工具（作为make的替代工具）不能满足绝大多数开发人员的需要。通过检查 Ant 建文件，很难发现项目的相关性信息和其它信息（如开发人员/拥有者、版本或站点主页)
+区别
+Maven 除了以程序构建能力为特色之外，还提供 Ant 所缺少的高级项目管理工具。由于 Maven 的缺省构建规则有较高的可重用性，所以常常用两三行 Maven 构建脚本就可以构建简单的项目
+
+JBoss是一个基于J2EE的开放源代码的应用服务器。 JBoss代码遵循LGPL许可，可以在任何商业应用中免费使用，而不用支付费用。JBoss是一个管理EJB的容器和服务器，支持EJB 1.1、EJB 2.0和EJB3的规范。但JBoss核心服务不包括支持servlet/JSP的WEB容器，一般与Tomcat或Jetty绑定使用。
+
+Kotlin 是一个基于 JVM 的新的编程语言，由 JetBrains 开发。
+Kotlin可以编译成Java字节码，也可以编译成JavaScript，方便在没有JVM的设备上运行。
+JetBrains，作为目前广受欢迎的Java IDE IntelliJ 的提供商，在 Apache 许可下已经开源其Kotlin 编程语言。
+
+
+Maven常用命令
+mvn archetype：create 创建Maven项目
+mvn compile 编译源代码
+mvn deploy 发布项目
+mvn test-compile 编译测试源代码
+mvn test 运行应用程序中的单元测试
+mvn site 生成项目相关信息的网站
+mvn clean 清除项目目录中的生成结果
+mvn package 根据项目生成的jar
+mvn install 在本地Repository中安装jar
+mvn eclipse:eclipse 生成eclipse项目文件
+mvnjetty:run 启动jetty服务
+mvntomcat:run 启动tomcat服务

@@ -36,5 +36,11 @@
 3 想要建立一个博客了，
 3-18
 1 AOP转为imooc中的，书上部分的out of style
+3-19
+1 Junit 简单学习了
+2 Ant
+3-20
+1 发现Spring MVC比Struct2性能更好，便不学struct2
+2 Spring mvc 仍未自己创建helloworld
 
 
