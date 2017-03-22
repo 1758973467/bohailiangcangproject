@@ -1,0 +1,67 @@
+SpringMVC
+基本
+Model（模型）：数据模型，提供要展示的数据，因此包含数据和行为，可以认为是领域模型或JavaBean组件（包含数据和行为），不过现在一般都分离开来：ValueObject（数据）和服务层（行为）。也就是模型提供了模型数据查询和模型数据的状态更新等功能，包括数据和业务。
+ 
+View（视图）：负责进行模型的展示，一般就是我们见到的用户界面，客户想看到的东西。
+ 
+Controller（控制器）：接收用户请求，委托给模型进行处理（状态改变），处理完毕后把返回的模型数据返回给视图，由视图负责展示。 也就是说控制器做了个调度员的工作。
+
+@Controller注释指示特定类充当控制器的角色。
+@RequestMapping注释用于将URL映射到整个类或特定处理程序方法
+
+先写web.xml映射希望DispatcherServlet处理的请求
+web.xml
+
+web.xml文件将保存Web应用程序的WebContent/WEB-INF目录。
+在HelloWebDispatcherServlet初始化时，框架将尝试从位于应用程序的WebContent/WEB-INF目录中的名为[servlet-name]-servlet.xml的文件加载应用程序上下文。在这个示例中，使用的文件将是HelloWeb-servlet.xml。
+
+<servlet-mapping>
+      <servlet-name>HelloWeb</servlet-name>
+      <url-pattern>*.jsp</url-pattern>
+</servlet-mapping>
+接下来，<servlet-mapping>标记指示哪些URL将由DispatcherServlet处理。这里所有以.jsp结尾的HTTP请求都将由HelloWeb DispatcherServlet处理。
+
+如果不想使用默认文件名为[servlet-name]-servlet.xml和默认位置为WebContent/WEB-INF，可以通过在web.xml文件中添加servlet侦听器ContextLoaderListener来自定义此文件名和位置
+<context-param>
+   <param-name>contextConfigLocation</param-name>
+   <param-value>/WEB-INF/HelloWeb-servlet.xml</param-value>
+</context-param>
+
+<listener>
+   <listener-class>
+      org.springframework.web.context.ContextLoaderListener
+   </listener-class>
+</listener>
+
+定义了[servlet-name]-servlet.xml
+视图解析
+[servlet-name]-servlet.xml文件将用于创建定义的bean，它会覆盖在全局范围中使用相同名称定义的任何bean的定义。
+
+<context：component-scan...>
+标签将用于激活SpringMVC注释扫描功能，允许使用@Controller和@RequestMapping等注释。
+
+@RequestMapping(value="/hello",method=RequestMethod.GET)
+value属性指示处理程序方法映射到的URL，method属性定义处理HTTP GET请求的服务方法。关于以上定义的控制器，需要注意以下几点：
+
+在服务方法中定义所需的业务逻辑。可以根据需要在此方法内调用其他方法。
+基于定义的业务逻辑，将在此方法中创建一个模型。可以设置不同的模型属性，这些属性将被视图访问以呈现最终结果。此示例创建且有属性“message”的模型。
+定义的服务方法可以返回一个String，它包含要用于渲染模型的视图的名称。此示例将“hello”返回为逻辑视图名称。
+
+InternalResourceViewResolver将定义用于解析视图名称的规则。根据上面定义的规则，hello的逻辑视图将委托给位于/WEB-INF/jsp/hello.jsp这个视图来实现
+
+
+
+http://www.cnblogs.com/liukemng/p/3726897.html
+我们还可以通过通配符对URL映射进行配置，通配符有“？”和“*”两个字符。其中“？”表示1个字符，“*”表示匹配多个字符，“**”表示匹配0个或多个路径。
+/** 匹配所有/的所有
+/* 匹配/下的一级
+
+1.@RequestParam，绑定单个请求数据，可以是URL中的数据，表单提交的数据或上传的文件； 
+2.@PathVariable，绑定URL模板变量值； 
+3.@CookieValue，绑定Cookie数据； 
+4.@RequestHeader，绑定请求头数据； 
+5.@ModelAttribute，绑定数据到Model； 
+6.@SessionAttributes，绑定数据到Session； 
+7.@RequestBody，用来处理Content-Type不是application/x-www-form-urlencoded编码的内容，例如application/json, application/xml等； 
+8.@RequestPart，绑定“multipart/data”数据，并可以根据数据类型进项对象转换；
+
