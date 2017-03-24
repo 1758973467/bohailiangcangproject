@@ -74,5 +74,64 @@ params
 绑定数据的验证
 
 
+注解格式化
+
+Spring内置类
+NumberFormat 	Number -String
+CurrencyFormat	Number -String 带货币符号
+PrecentFormat	Number -String 带百分数符号
+DateFormatter	Date-String
+NumberFormatAnnotationFormatterFactory	
+	@NumberFormat 注解 指定style.Number/Currency/Precent pattern="#.##"(保留两位小数) pattern会覆盖掉style
+JodaDateTImeFormatAnnotationFormatterFactory
+	@DateTimeFormat Date,Calendar,Long,Joda
+
+	在jsp页面上<spring:eval 来绑定显示的值
+
+
+国际化
+<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+    <!-- 国际化信息所在的文件名 -->                     
+    <property name="basename" value="messages" />   
+    <!-- 如果在国际化资源文件中找不到对应代码的信息，就用这个代码作为名称  -->               
+    <property name="useCodeAsDefaultMessage" value="true" />           
+</bean>
+基于session
+<mvc:interceptors>  
+    <!-- 国际化操作拦截器 如果采用基于（请求/Session/Cookie）则必需配置 --> 
+    <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />  
+</mvc:interceptors>  
+
+<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+权限管理
+
+异常处理
+	1 继承HandlerExceptionResolver 接口 并在配置文件
+	<bean id="exceptionResolver" class="所在包名.MyHandlerExceptionResolver"/>
+	2 使用注解 @ExceptionHandler
+	建立自己的
+	public abstract class BaseController {  
+
+    @ExceptionHandler
+    public String exception(HttpServletRequest request, Exception e) {  
+          
+　　　   //添加自己的异常处理逻辑，如日志记录　　　
+        request.setAttribute("exceptionMessage", e.getMessage());  
+          
+        // 根据不同的异常类型进行不同处理
+        if(e instanceof SQLException) 
+            return "testerror";   
+        else
+            return "error";  
+    }  
+    
+}
+
+public class HelloWorldController extends BaseController{
+    //...内容省略
+}
+
+这样 HelloWorldController 抛出异常时便会进入BaseController类的异常处理
+	
 
 	
