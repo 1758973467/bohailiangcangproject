@@ -1,0 +1,78 @@
+注释式SpringMVC流程
+DispatcherServlet 前端控制器，用于接受请求
+HandlerMapping	接口 用于处理映射
+DefaultAnnotationHandlerMapping HandlerMapping接口实现，用于把一个URL映射到具体的Controller类上。
+HandlerAdapter 接口	用于处理请求的映射
+AnnotationMethodHandlerAdapter HandlerAdapter接口的实现，用于将一个URL映射到对应的Controller类的某个方法上
+ViewResolver 接口 用于解析View
+InternalResourceViewResolver :ViewResolver接口的实现，用于将ModelAndView逻辑视图解析为具体的View
+
+URL请求到action的映射规则
+@RequestMapping(value="",params,  method=)
+value
+	@RequestMapping(value={"/index", "/hello"})
+	该action匹配/index ,/hello
+
+	URL请求参数
+	@RequestMapping(value="/detail/{id}")
+	value="detail/{id}"中的{id}为占位符表示可以映射请求为/detail/123
+
+	方法的参数@PathVariable(value="id")Integer uid用于将URL占位符所对应变量映射到参数uid上
+
+	URL通配符映射
+	? 表示一个字符 * 表示多个字符 **匹配0或多个路径
+	URL正则表达式
+params
+	指定映射请求必须包含某参数
+	@RequestMapping(value="/paramtest",params="example")
+	URL http://localhost:8080/helloworld/paramtest?example
+	某参数必须等于某个值
+	params="example=AAA"
+	URL http://localhost:8080/helloworld/paramtest?example=AAA
+	
+绑定数据
+	Model数据是request级别
+	绑定数据注解
+	@RequestParam 	绑定单个请求数据，URL数据/表单提交数据/上传文件
+	文件绑定 commons-fileupload，commons-io 两个包
+	@RequestParam(value="userbname",required=true,defaultValue="AAA")
+	绑定请求的参数名称
+	@PathVariable 	绑定URL模板值
+	@CookieValue  	绑定Cookie数据
+	与@RequestParam参数相同
+	@RequestHeader	绑定请求头数据
+	@ModelAttribute	数据->Model
+	
+	@SessionAttribute 数据->Session
+	@RequestBody	用来处理Content-Type不是applicaiton/x-www-form-urlencoded编码的内容
+	例如application/json,applicaiton/xml等
+	@RequestPart	绑定multipart/data数据，并可以根据数据类型转换
+	
+	自动绑定
+	
+	@RequestMapping(value="/modelautobind", method = {RequestMethod.GET})
+	public String modelAutoBind(HttpServletRequest request, Model model){
+		
+		model.addAttribute("accountmodel", new AccountModel());
+		return "modelautobind";
+	}
+
+	@RequestMapping(value="/modelautobind", method = {RequestMethod.POST})
+	public String modelAutoBind(HttpServletRequest request, Model model, AccountModel accountModel){
+		//aountmodel这里是绑定好的数据
+		model.addAttribute("accountmodel", accountModel);
+		return "modelautobindresult";
+	}
+	
+	 <form:form modelAttribute="accountmodel" method="post">     
+        用户名：<form:input path="username"/><br/>
+        密 码：<form:password path="password"/><br/>
+        <input type="submit" value="Submit" />
+    </form:form>
+
+数据验证
+绑定数据的验证
+
+
+
+	
