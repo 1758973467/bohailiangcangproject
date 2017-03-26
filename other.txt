@@ -52,3 +52,11 @@ mvn install 在本地Repository中安装jar
 mvn eclipse:eclipse 生成eclipse项目文件
 mvnjetty:run 启动jetty服务
 mvntomcat:run 启动tomcat服务
+
+Envers是一个来自于JBoss的开源项目，致力于提供简化版的持久化JPA类。Envers正式成为Hibernate的一个模块
+
+JPA全称Java Persistence API.JPA通过JDK5.0注解或XML描述对象－关系表的映射关系，并将运行期的实体对象持久化到数据库中
+
+EJB是sun的JavaEE服务器端组件模型，设计目标与核心应用是部署分布式应用程序。简单来说就是把已经编写好的程序（即：类）打包放在服务器上执行。凭借java跨平台的优势，用EJB技术部署的分布式系统可以不限于特定的平台。EJB(EnterpriseJavaBean)是J2EE(javaEE)的一部分，定义了一个用于开发基于组件的企业多重应用程序的标准。其特点包括网络服务支持和核心开发工具(SDK)。在J2EE里，EnterpriseJavaBeans(EJB)称为Java企业Bean，是Java的核心代码，分别是会话Bean（SessionBean），实体Bean（EntityBean）和消息驱动Bean（MessageDrivenBean）。在EJB3.0推出以后，实体Bean被单独分了出来，形成了新的规范JPA。
+
+ORM(ObjectRelationalMapping)---是一种为了解决面向对象与关系型数据库存在的互不匹配的现象的技术。简单说：ORM是通过使用描述对象和数据库之间映射的元数据，将Java程序中的对象自动持久化到关系数据中。本质上就是将数据从一种形式转换到另外一种形式。

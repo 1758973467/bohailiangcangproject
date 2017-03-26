@@ -1,0 +1,102 @@
+Hibernate
+
+输出sql语句到控制台
+
+hibernate.show_sql true
+hibernate.format_sql 
+
+
+注解 
+@Entity 表示这个类是个实体类
+@Table(name="") 映射到数据库的表名称
+@Column 表示实体类成员属性映射到数据表的字段名，name指定一个新的字段名
+@Id 表示主键Id
+
+@Transient 不需要持久化字段
+@Temporal(value=TemporalType)注解时间和日期
+TemporalType.TIMESTAMP yyyy-MM-dd HH:mm:ss
+TemporalType.DATE yyyy-MM-dd
+TemporalType.TIME HH:mm:ss
+
+映射枚举类型
+@Enumerated(value=EnumType) 表示此成员属性为枚举映射到数据库
+EnumType.STRING	 直接将枚举名称映射到数据库
+EnumType.ORDINAL	将枚举值的数值映射到数据库
+
+ID键生成策略
+
+注释方式
+@GeneratedValue(strategy=GenerationType)
+	AUTO	
+	对于mysql 使用auto_increment，Oracle使用hibernate_sequence(名称固定)
+	TABLE	使用表保存id值
+	IDENTITY	
+	对DB2,MySQL, MS SQL Server,Sybase和HypersonicSQL的内置标识字段提供支持。 返回的标识符是long, short 或者int类型的。 (数据库自增)
+	不支持Oracle
+	SEQUENCE	
+	在DB2,PostgreSQL,Oracle, SAP DB, McKoi中使用序列（sequence)， 而在Interbase中使用生成器(generator)。返回的标识符是long, short或者 int类型的。(数据库自增)
+	不支持mysql
+组合主键
+方法
+	1 将组件类注解为@Embeddable,并将组件的属性注解为@Id
+	2 将组件的属性注解为@EmbeddedId
+	3 将类注解为@IdClass,并将该实体中所有属于主键的属性都注解为@Id
+
+Hibernate configuration
+	Configuration conf = new Configuration();
+	conf.addAnnotatedClass(Employee.class).configure();//读取配置文件
+	ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(conf.getProperties()).build();
+SessionFactory
+	getCuuentSession()
+		当前环境中没有Session时，才创建事务提交后自动关闭
+		环境 
+		current_session_content_context_class
+		thread 	主要是数据界定事务
+		jta		主要是分布式事务
+	openSession()
+	每次都创建一个，使用后需关闭
+	
+Session
+	save()  向数据库保存一个对象，产生对象3个状态
+	delete()	删除时需要有ID 
+	Object load(Class arg0,Serializable arg1) throws HibernateException
+		*arg0:需要加载对象的类，例如：User.class    *arg1:查询条件(实现了序列化接口的对象)：例"4028818a245fdd0301245fdd06380001"字符串已经实现了序列化接口。如果是数值类类型，则hibernate会自动使用包装类，例如 1
+		* 此方法返回类型为Object，但返回的是代理对象。
+		* 执行此方法时不会立即发出查询SQL语句。只有在使用对象时，它才发出查询SQL语句，加载对象。
+		* 因为load方法实现了lazy(称为延迟加载、赖加载)
+		* 延迟加载：只有真正使用这个对象的时候，才加载(才发出SQL语句)
+		*hibernate延迟加载实现原理是代理方式。 *采用load()方法加载数据，如果数据库中没有相应的记录，则会抛出异常对象不找到(org.hibernate.ObjectNotFoundException)
+	Object get(Class arg0,Serializable arg1)
+		执行此方法时立即发出查询SQL语句。加载User对象加载数据库中存在的数据
+		arg0,arg1，参数一样
+		
+		
+	get()和load()只根据主键查询，不能根据其它字段查询，如果想根据非主键查询，可以使用HQL，SQL
+	update()
+	saveOrUpdate()	在执行的时候hibernate会检查，如果对象在数据库中已经有对应的记录(是指主键)，则会更新update，否则会添加数据save
+	clear()
+	清除session缓存
+	无论是load还是get，都会首先查找缓存(一级缓存，也叫session级缓存)，如果没有，才会去数据库查找
+	flush()
+	默认在事务提交时执行
+	session.setFlushMode(FlushMode);
+	FlushMode的枚举值：
+	l     FlushMode.ALWAYS：任务一条SQL语句，都会flush一次
+	l     FlushMode.AUTO  ：自动flush(默认)
+	l     FlushMode.COMMIT: 只有在commit时才flush
+	l     FlushMode.MANUAL：手动flush。
+	l     FlushMode.NEVER ：永远不flush  此选项在性能优化时可能用，比如session取数据为只读时用，这样就不需要与数据库同步了
+	
+	evict()
+	从session缓存(EntityEntries属性)中逐出该对象
+	但是与commit同时使用，会抛出异常,需要显式调用flush
+	
+	持久化对象
+	瞬时对象（Transient Object）使用new操作符初始化的对象不是立刻就持久的
+	持久化对象（Persistent Object）
+	离线对象（Detached Object）Session关闭之后，持久化对象就变为离线对象
+	三种状态的区分：
+1、 有没有ID，(如果没有则是Transient状态)
+2、 ID在数据库中有没有
+3、 在内存里有没有(session缓存)
+	

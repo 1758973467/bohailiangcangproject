@@ -24,12 +24,8 @@ Spring核心容器Bean
 	depends-on必须先实例化depends-on的bean，再实例化该bean
 	
 	<bean id="hellworld" class="com.demo.action.HelloWorld" depends-on="date">
-		<property name="msg">
-			<value>你好</value>
-		</property>
-		<property name="date">
-			<ref bean="date"/>
-		</property>
+		<property name="msg" value="你好"/>
+		<property name="date" ref="date"/>
 	</bean>
 	<bean id="date" class="java.util.Date"/>
 	lifeclycle
